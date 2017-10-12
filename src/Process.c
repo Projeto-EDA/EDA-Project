@@ -45,6 +45,12 @@ void insere_ini(ram* l,int kbyt, int tempo, char nome);
 void imprimir(ram *l);
 void remover(ram *l,int time);
 void menu();
+/*******************/
+void inserir_final(ram *l,int kbyt, int temp,char s);
+void inserir_pos(ram *l,int kbyt, int temp,char s,int posicao);
+void remover_prim(ram *l);
+void remove_ult(ram *l);
+void remove_posicao(int posicao,ram *l);
 
 int main(int argc, char const *argv[]) {
   int mem,esp,temp,escolha,chronos=0;
@@ -180,6 +186,106 @@ else{
     free(no);
 }
 }
+
+//Erro ao chamar a função insere_ini
+
+/*void inserir_final(ram *l,int kbyt, int temp,char s){
+  if(l==NULL)
+    return;
+  if(l->tam == 0)
+  {
+    insere_ini(ram *l,int kbyt, int temp,char s);
+    return;
+  }
+  dados *no = l->inicio, *novo;
+  while(no->prox != l->inicio){
+    no = no->prox;
+  }
+  novo = (dados*) malloc(sizeof(dados));
+  novo->kbytes= kbyt;
+  novo->label = s;
+  novo->tempo = temp;
+  no->prox = novo;
+  novo->ant = no;
+  novo->prox = l->inicio;
+  l->fim = novo;
+  l->tam++;
+}*/
+
+//Só insere no penultimo
+
+void inserir_pos(ram *l,int kbyt, int temp,char s,int posicao){
+  if((l==NULL) || (posicao > l->tam)){
+    return;
+  }
+  int aux;
+  dados *no = l->inicio, *novo;
+  for(aux=1;aux < posicao;aux++)
+  novo = (dados*)malloc(sizeof(dados));
+  novo->kbytes= kbyt;
+  novo->label = s;
+  novo->tempo = temp;
+  no->prox->ant = novo;
+  novo->prox = no->prox;
+  no->prox = novo;
+  novo->ant = no;
+  l->tam++;
+}
+void remover_prim(ram *l){
+  if ((l->tam == 0) || (l == NULL))
+       return;
+   if (l->tam == 1)
+   {
+       free (l->inicio);
+       l->inicio = NULL;
+       l->fim = NULL;
+       l->tam = 0;
+       return;
+   }
+   dados *no = l->inicio->prox;
+   no->ant = l->fim;
+   l->fim->prox = no;
+   free(l->inicio);
+   l->inicio = no;
+   l->tam--;
+}
+void remove_ult(ram *l){
+  if((l->tam == 0) || (l == NULL))
+    return;
+  if(l->tam == 1)
+  {
+    remover_prim(l);
+    return ;
+  }
+  dados *no = l->fim;
+  l->fim = no->ant;
+  l->fim = no->prox = l->inicio;
+  l->fim->ant = l->fim;
+  free(no);
+  l->tam--;
+}
+void remove_posicao(int posicao,ram *l){
+  if((l->tam == 0) || (l==NULL))
+    return ;
+  if(l->tam == 1){
+    remover_prim(l);
+    return ;
+  }
+  if(posicao == l->tam-1){
+    remove_ult(l);
+    return;
+  }
+  int aux;
+  dados *no = l->inicio;
+  for(aux=0;aux < posicao;aux++){
+    no = no->prox;
+  }
+  no->ant->prox = no->prox;
+  no->prox->ant = no->ant;
+  free(no);
+}
+
+
 /*
 void inserirPosicao(int valor, int posicao, ldec *l)
 {
