@@ -8,7 +8,6 @@ void flush_in() {
 }
 //Dados
 
-
 struct Dados{
   int kbytes;
   char label;
@@ -29,6 +28,7 @@ typedef struct Memoria ram;
 ram *inicializar();
 void insere_ini(ram* l,int kbyt, int tempo, char nome);
 void imprimir(ram *l);
+void remover(ram *l,int time);
 
 int main(int argc, char const *argv[]) {
   int mem,esp,temp,escolha,chronos=0;
@@ -64,12 +64,14 @@ int main(int argc, char const *argv[]) {
         printf("Memória insuficiente\n");
       }
     }
+    imprimir(l);
+    remover(l,chronos);
+    mem = mem + esp;
     if(escolha!=0){
     printf("Continuar? S/n ");
     scanf("%c",&cont);
   }
 }while(cont == 'S' && escolha != 0);
-  imprimir(l);
   return 0;
 }
 
@@ -132,30 +134,33 @@ void imprimir(ram *l){
     no = no->prox;
   }
 }
-void remover_ini(ram *l,int temp){
-  if((l->tam == 0) || (l==NULL))
-    return;
-  if(l->tam == 1)
-  {
-    free(l->inicio);
-    l->inicio = NULL;
-    l->fim = NULL;
-    l->tam = 0;
+void remover(ram *l,int temp){
+  if((l->tam == 0) || (l==NULL)){
     return;
   }
   dados *aux;
   dados *no;
   no = l->inicio;
-  while(no->tempo != temp){
-    aux = no;
+  if(l->tam == 1)
+  {
+    if(no->tempo <= temp){
+    free(l->inicio);
+    l->inicio = NULL;
+    l->fim = NULL;
+    l->tam = 0;
+  }
+    return;
+  }
+
+  while(no->tempo > temp){
     no = no->prox;
   }
   if(no = l->inicio){
     return;
   }
-  else{
+else{
     no->prox->ant = no->ant;
     no->ant->prox = no->prox;
     free(no);
-  }
+}
 }
