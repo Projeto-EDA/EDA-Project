@@ -1,13 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+void flush_in() {
+    int ch;
+    do {
+        ch = fgetc(stdin);
+    } while (ch != EOF && ch != '\n');
+}
 //Dados
 
+
 struct Dados{
-  float kbytes;
-  char label[30];
-  struct Memoria *ant;
-  struct Memoria *prox;
+  int kbytes;
+  char label;
+  int tempo;
+  struct Dados *ant;
+  struct Dados *prox;
 };
 typedef struct Dados dados;
 
@@ -20,14 +27,48 @@ struct Memoria{
 typedef struct Memoria ram;
 
 ram *inicializar();
-void insere_ini(ram* l,/*char *s,*/int kbyt);
+void insere_ini(ram* l,int kbyt, int tempo, char nome);
 void imprimir(ram *l);
 
 int main(int argc, char const *argv[]) {
-
+  int mem,esp,temp,escolha,chronos=0;
+  char nome,cont;
+  printf("Digite o tamanho da memória disponível: ");
+  scanf("%d",&mem);
   ram* l;
   l = inicializar();
-  insere_ini(l,12);
+  do{
+    printf("\n0-Sair\n");
+    printf("1-Apenas passar o tempo\n");
+    printf("2-Adicionar um novo processo\n\n");
+    printf("Escolha uma opção: ");
+    scanf("%d",&escolha);
+    flush_in();
+    if(escolha == 1){
+      chronos++;
+    }
+    if(escolha == 2){
+        printf("Informe o tamanho do processo: ");
+        scanf("%d",&esp);
+        printf("Informe o tempo de duração: ");
+        scanf("%d",&temp);
+        flush_in();
+        printf("Informe o nome do processo: ");
+        scanf("%c",&nome);
+        flush_in();
+      if(mem > esp){
+        mem = mem - esp;
+        insere_ini(l,esp,(temp+chronos),nome);
+      }
+      else{
+        printf("Memória insuficiente\n");
+      }
+    }
+    if(escolha!=0){
+    printf("Continuar? S/n ");
+    scanf("%c",&cont);
+  }
+}while(cont == 'S' && escolha != 0);
   imprimir(l);
   return 0;
 }
@@ -41,11 +82,13 @@ ram *inicializar(){
 }
 
 
-void insere_ini(ram *l,/*char *s*/int kbyt){
+void insere_ini(ram *l, int kbyt, int temp,char s){
 
   if(l!= NULL){
     dados *no = (dados*)malloc(sizeof(dados));
     no->kbytes= kbyt;
+    no->label = s;
+    no->tempo = temp;
 
     if(l->tam == 0)
       {
@@ -79,13 +122,17 @@ void imprimir(ram *l){
     return;
   dados *no = l->inicio;
   printf("%d\n",no->kbytes);
+  printf("%d\n",no->tempo);
+  printf("%c\n",no->label);
   no = no->prox;
   while(no != l->inicio){
     printf("%d\n",no->kbytes);
+    printf("%d\n",no->tempo);
+    printf("%c\n",no->label);
     no = no->prox;
   }
 }
-void remover_ini(ram *l){
+void remover_ini(ram *l,int temp){
   if((l->tam == 0) || (l==NULL))
     return;
   if(l->tam == 1)
@@ -96,5 +143,19 @@ void remover_ini(ram *l){
     l->tam = 0;
     return;
   }
-  dados *no = l->inicio->prox;
+  dados *aux;
+  dados *no;
+  no = l->inicio;
+  while(no->tempo != temp){
+    aux = no;
+    no = no->prox;
+  }
+  if(no = l->inicio){
+    return;
+  }
+  else{
+    no->prox->ant = no->ant;
+    no->ant->prox = no->prox;
+    free(no);
+  }
 }
