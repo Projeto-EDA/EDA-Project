@@ -1,0 +1,59 @@
+﻿Relatório - Projeto de Pesquisa de EDA – Parte 1
+
+Alunos:
+
+-João Vítor Morandi Lemos /160010195 
+-João Lucas Sousa Reis    /160009758
+-Luciano dos Santos Silva /160013321
+
+Professor: Fernando W. Cruz
+Disciplina: Estrutura de Dados e Algoritmos
+
+I) Objetivos do projeto
+
+Criar diversos processos que interagem com a memória do sistema operacional. Esses processos devem ser alocados na memória e depois de executados devem liberar o espaço ocupado por eles.
+
+Requisitos cumpridos:
+Requisitos cumpridos parcialmente:
+Requisitos não-cumpridos:
+
+II) Diário de atividades
+
+Seção 1: João Vítor Morandi Lemos
+
+07/10/2017 - Início do projeto: foi criado um repositório no github onde nossos arquivos, tanto os códigos quanto os relatórios ficaram armazenados. Além disso, foi iniciada a criação de uma lista encadeada circular. Tive que estudar as apostilas do moodle para conseguir criá-la. Iniciei também a criação dos processos requisitados no projeto.
+
+11/10/2017 – Criação e formatação do relatório.
+
+Seção 2: João Lucas Sousa Reis
+
+
+
+
+Seção 3: Luciano dos Santos
+
+
+III) Código identado e documentado
+
+
+
+IV) Análise
+
+Grau de falhas:
+
+Limitação da solução:
+
+Melhorias possíveis:
+
+V) Opinião pessoal
+
+Seção 1 – João Vítor Morandi Lemos
+
+Na opinião, esse projeto é muito importante para colocar em prática os conhecimentos adquiridos em sala de aula sobre listas circulares, pilhas e filas.
+Além disso, trabalhar com a memória em sistemas operacionais abre espaço para mais um conhecimento extra muito útil para o resto do curso e também para a vida profissional.
+
+Seção 2 – João Lucas Sousa Reis
+
+
+
+Seção 3 – Luciano dos Santos Silva
