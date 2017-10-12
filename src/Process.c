@@ -1,5 +1,20 @@
+/*
+Relatório - Projeto de Pesquisa de EDA – Parte 1
+
+Alunos:
+
+-João Lucas Sousa Reis    /160009758
+-João Vítor Morandi Lemos /160010195
+-Luciano dos Santos Silva /160013321
+
+Professor: Fernando W. Cruz
+Disciplina: Estrutura de Dados e Algoritmos
+
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
+
 void flush_in() {
     int ch;
     do {
@@ -29,6 +44,7 @@ ram *inicializar();
 void insere_ini(ram* l,int kbyt, int tempo, char nome);
 void imprimir(ram *l);
 void remover(ram *l,int time);
+void menu();
 
 int main(int argc, char const *argv[]) {
   int mem,esp,temp,escolha,chronos=0;
@@ -164,3 +180,41 @@ else{
     free(no);
 }
 }
+/*
+void inserirPosicao(int valor, int posicao, ldec *l)
+{
+    if ((l == NULL) || (posicao > l->tamanho))
+        return;
+    int i;
+    No *no = l->cabeca, *novo;
+    for (i = 1; i < posicao; i++)//i inicializa em 1 para parar na posicao correta         no = no->proximo;
+    novo = (No*) malloc(sizeof(No));
+    novo->info = valor;
+    no->proximo->anterior = novo;
+    novo->proximo = no->proximo;
+    no->proximo = novo;
+    novo->anterior = no;
+    l->tamanho++;
+}
+void removerPosicao(int posicao, ldec *l)//Remove o nó de determinada posição da lista
+{
+    if ((l->tamanho == 0) || (l == NULL))
+        return;
+    if (l->tamanho == 1)
+    {
+        removerPrimeiro(l);
+        return;
+    }
+    if (posicao == l->tamanho-1)
+    {
+        removerUltimo(l);
+        return;
+    }
+    int i;
+    No *no = l->cabeca;
+    for (i = 0; i < posicao; i++)     {         no = no->proximo;
+    }
+    no->anterior->proximo = no->proximo;
+    no->proximo->anterior = no->anterior;
+    free(no);
+}*/
