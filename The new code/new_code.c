@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+//Limpa o Buffer do teclado;
 void flush_in() {
     int ch;
     do {
@@ -7,6 +9,7 @@ void flush_in() {
     } while (ch != EOF && ch != '\n');
 }
 
+//Estrutura para os tipos de dados;
 struct elemento {
   char band;
   char nome;
@@ -26,6 +29,7 @@ struct menu{
 
 typedef struct menu Menu;
 
+//Inicializa a lista;
 Menu *lst_cria(){
   Menu *novo = (Menu *)malloc(sizeof(Menu));
   novo->inicio = NULL;
@@ -34,6 +38,7 @@ Menu *lst_cria(){
   return (novo);
 }
 
+//Cria a Memória;
 Menu *cria_lista(Menu *l,int tam){
   if(l!=NULL){
     int i;
@@ -79,6 +84,8 @@ void printar(Menu *l){
   }
 }
 
+/*Tenta reorganizar a lista se o tamanho do processo for muito grande
+e não couber;*/
 Menu *altera_lista(Menu *l,char name, int p,int temp){
   Elemento *aux;
   aux = l->inicio;
@@ -100,6 +107,8 @@ Menu *altera_lista(Menu *l,char name, int p,int temp){
   return (l);
 }
 
+/*Remove um processo da memória atribuindo ao lugar que ele ocupava na memória
+como vazio*/
 int remover(Menu *l,int tam,int temp){
   Elemento *no;
   no = l->inicio;
@@ -154,6 +163,7 @@ int main(){
       l = altera_lista(l,name,tam2,(temp+Chronos));
       tam = tam - tam2;
     }
+    //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
     else{
       printf("\nMemória insuficiente\n");
     }
