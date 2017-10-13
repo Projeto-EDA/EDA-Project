@@ -1,4 +1,4 @@
-﻿Relatório - Projeto de Pesquisa de EDA – Parte 1
+Relatório - Projeto de Pesquisa de EDA – Parte 1
 
 Alunos:
 
@@ -11,11 +11,13 @@ Disciplina: Estrutura de Dados e Algoritmos
 
 I) Objetivos do projeto
 
-Criar diversos processos que interagem com a memória do sistema operacional. Esses processos devem ser alocados na memória e depois de executados devem liberar o espaço ocupado por eles.
-
-Requisitos cumpridos:
-Requisitos cumpridos parcialmente:
-Requisitos não-cumpridos:
+O Primeiro Projeto de pesquisa da disciplina de Estruturas de Dados e Algoritmos da FGA(Faculdade do Gama)-UNB foi criar diversos processos que interagem com a memória do sistema operacional.
+Esses processos devem ser alocados na memória e depois de executados devem liberar o espaço ocupado por eles.
+Tal trabalho formado pelos alunos da disciplina devem buscar conhecimento do programa com todos seus requisitos sendo obedecidos e executados.
+Foi cumprida a criação de um menu com opções de imprimir, inserir e remoção de um processo da lista, além de uma opção para saída do programa.
+O processo de alocação de memória seguiu a regra que o processo deve ser colocado na primeira região de memória.
+O trabalho respeita perfeitamente os padrões de gerência de espaços dos processos. Caso um processo não caiba em um buraco vazio o programa ilustra a mensagem de mémoria cheia.
+O programa respeitou todos os demais requisitos pedido pelo Professor, o único requisito que não foi cumprido foi a criação de um arquivo para armazenar os dados dos processos já salvos.
 
 II) Diário de atividades
 
@@ -25,7 +27,7 @@ Seção 1: João Vítor Morandi Lemos
 
 11/10/2017 – Criação e formatação do relatório. O código criado até então se mostrou insuficiente para resolver alguns requisitos. Foi necessário que o código fosse completamente refeito.
 
-Entre 11/10/2017 e 12/10/2017 – Criação de um menu para melhor interação com o usuário. Criação da função de inserção de um processo. A remoção a partir do tempo foi bem sucedida. Os processos não mais se sobrepõem a outros processos em andamento, apenas ocupam áreas vazias, e não havendo espaços vazios, mostra-se uma mensagem de erro ao executar o processo. 
+Entre 11/10/2017 e 12/10/2017 – Criação de um menu para melhor interação com o usuário. Criação da função de inserção de um processo. A remoção a partir do tempo foi bem sucedida. Os processos não mais se sobrepõem a outros processos em andamento, apenas ocupam áreas vazias, e não havendo espaços vazios, mostra-se uma mensagem de erro ao executar o processo.
 
 Seção 2: João Lucas Sousa Reis
 
@@ -33,17 +35,196 @@ Seção 2: João Lucas Sousa Reis
 
 12/10/2017 - Criação e Formatação do relatório e criando a função remover no código.
 
+13/10/2017 – Testes de execução do código para verificação de possíveis erros ou avisos
+
 Seção 3: Luciano dos Santos
 
 08/10/2017 – Pesquisa para adquirir base e aprofundamento nos funcionamentos de um processo na memória e de uma lista duplamente encadeada e circular.
 
-11/10/2017 – Implementação dos códigos para a criação da lista duplamente encadeada e circular. 
+11/10/2017 – Implementação dos códigos para a criação da lista duplamente encadeada e circular.
 
 12/10/2017 – Instruções acerca do funcionamento do código para um bom entendimento.
 
 
 III) Código identado e documentado
 
+#include <stdio.h>
+#include <stdlib.h>
+
+//Limpa o Buffer do teclado;
+void flush_in() {
+    int ch;
+    do {
+        ch = fgetc(stdin);
+    } while (ch != EOF && ch != '\n');
+}
+
+//Estrutura para os tipos de dados;
+struct elemento {
+  char band;
+  char nome;
+  int tempo;
+  int pos;
+  struct elemento *ant;
+  struct elemento *prox;
+};
+
+typedef struct elemento Elemento;
+
+struct menu{
+  int tam;
+  struct elemento *inicio;
+  struct elemento *fim;
+};
+
+typedef struct menu Menu;
+
+//Inicializa a lista;
+Menu *lst_cria(){
+  Menu *novo = (Menu *)malloc(sizeof(Menu));
+  novo->inicio = NULL;
+  novo->fim = NULL;
+  novo->tam = 0;
+  return (novo);
+}
+
+//Cria a Memória;
+Menu *cria_lista(Menu *l,int tam){
+  if(l!=NULL){
+    int i;
+    for(i=tam;i>0;i--){
+      Elemento *novo = (Elemento *)malloc(sizeof(Elemento));
+      novo->band = 'H';
+      novo->nome = '*';
+      novo->tempo = 0;
+      novo->pos = i;
+      if(l->tam == 0){
+        l->inicio = novo;
+        l->fim = novo;
+        novo->ant = novo;
+        novo->prox = novo;
+      }
+      if(l->tam >= 1){
+        l->inicio->ant = novo;
+        l->fim->prox = novo;
+        novo->ant = l->fim;
+        novo->prox = l->inicio;
+        l->inicio = novo;
+      }
+      l->tam++;
+    }
+  }
+  return (l);
+}
+
+void printar(Menu *l){
+  if((l->tam == 0) || (l==NULL)){
+    return;
+  }
+  Elemento *no = l->inicio;
+  printf("Nó %d:",no->pos);
+  printf("%c - ",no->band);
+  printf("%c\n",no->nome);
+  no = no->prox;
+  while(no != l->inicio){
+    printf("Nó %d:",no->pos);
+    printf("%c - ",no->band);
+    printf("%c\n",no->nome);
+    no = no->prox;
+  }
+}
+
+/*Tenta reorganizar a lista se o tamanho do processo for muito grande
+e não couber;*/
+Menu *altera_lista(Menu *l,char name, int p,int temp){
+  Elemento *aux;
+  aux = l->inicio;
+  int cont=0;
+
+  while(cont<p){
+    if(aux->band == 'H'){
+    aux->band = 'P';
+    aux->nome = name;
+    aux->tempo = temp;
+    aux = aux->prox;
+    cont++;
+    }
+    else{
+      aux = aux->prox;
+    }
+  }
+
+  return (l);
+}
+
+/*Remove um processo da memória atribuindo ao lugar que ele ocupava na memória
+como vazio*/
+int remover(Menu *l,int tam,int temp){
+  Elemento *no;
+  no = l->inicio;
+  if(no->tempo <=temp && no->band == 'P'){
+    no->band = 'H';
+    no->nome = '*';
+    tam++;
+  }
+  no = no->prox;
+  while(no != l->inicio){
+    if(no->tempo <=temp && no->band == 'P'){
+      no->band = 'H';
+      no->nome = '*';
+      tam++;
+    }
+    no = no->prox;
+  }
+  return tam;
+}
+
+
+int main(){
+  do{
+  Menu *l;
+  int tam,tam2,temp,opcao,Chronos=0;
+  char name;
+  printf("\nDigite o tamanho da memória: ");
+  scanf("%d",&tam);
+  l = lst_cria();
+  l = cria_lista(l,tam);
+
+  printf("\n0-Sair\n");
+  printf("1-Passar o tempo\n");
+  printf("2-Adicionar processo\n");
+  printf("3-Printar memória\n\n");
+  printf("Escolha uma opcao: ");
+  scanf("%d",&opcao);
+  if(opcao==1){
+    Chronos++;
+    tam = remover(l,tam,Chronos);
+  }
+  if(opcao==2){
+    flush_in();
+    printf("Informe o nome do processo: ");
+    scanf("%c",&name);
+    flush_in();
+    printf("Informe o tamanho do processo: ");
+    scanf("%d",&tam2);
+    printf("Informe o tempo de duração: ");
+    scanf("%d",&temp);
+    if(tam >= tam2){
+      l = altera_lista(l,name,tam2,(temp+Chronos));
+      tam = tam - tam2;
+    }
+    //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
+    else{
+      printf("\nMemória insuficiente\n");
+    }
+}
+  if(opcao==3){
+    printar(l);
+  }
+
+}while(opcao!=0);
+  return 0;
+}
 
 
 IV) Análise
@@ -52,23 +233,25 @@ Grau de falhas:
 
 Limitação da solução:
 
+
 Melhorias possíveis:
+
 
 V) Opinião pessoal
 
 Seção 1 – João Vítor Morandi Lemos
 
-Na opinião, esse projeto é muito importante para colocar em prática os conhecimentos adquiridos em sala de aula sobre listas circulares, pilhas e filas.
+	Na opinião, esse projeto é muito importante para colocar em prática os conhecimentos adquiridos em sala de aula sobre listas circulares, pilhas e filas.
 Além disso, trabalhar com a memória em sistemas operacionais abre espaço para mais um conhecimento extra muito útil para o resto do curso e também para a vida profissional.
 
 Seção 2 – João Lucas Sousa Reis
 
-Tal projeto se mostrou desafiador, mas não sendo impossível com o trabalho em equipe.
-A prática do exercício trouxe um trabalho em equipe focado em ajuda de todo grupo e na ajuda de discussões para futuros projetos de equipe.
-Proporcionou a demostração do conhecimento adquirido atualmente da disciplina e o tão importante ela é.
+	A prática do exercício trouxe um trabalho em equipe focado em ajuda de todo grupo e na ajuda de discussões para futuros projetos de equipe.O projeto proporcionou um desafio para o grupo, o desafio do tipo que no futuro, quando for realmente trabalhar com softwares grandes, um trabalho em grupo é indispensável.
+Tal projeto se mostrou desafiador, mas não sendo impossível com o trabalho em equipe, proporcionou a demostração do conhecimento adquirido atualmente da disciplina e de estudos adicionais para bons resultados.
+
 
 Seção 3 – Luciano dos Santos Silva
 
-O projeto não somente exigiu que soubéssemos o que foi ensinado em sala de aula como também aprender a abstrair para que pudéssemos chegar em algumas soluções. O projeto foi importante pois força o aluno a ir procurar informações em outras esferas de conhecimento e não ficar preso somente na matéria ministrada no curso.
-Foi possível perceber que o conhecimento adquirido na matéria não somente sera importante com também é imprescindível para que você saiba resolver diversos problemas que podem surgir em alguma parte da sua vida profissional.
-
+	O projeto não somente exigiu que se mostre o que foi ensinado em sala de aula como também aprender a abstrair para que se possar a chegar em soluções do dia-a-dia.
+O projeto foi importante pois força o aluno a ir procurar informações em outras esferas de conhecimento e não ficar preso somente na matéria ministrada no curso.
+	Foi possível perceber que o conhecimento adquirido na matéria não somente será importante com também é imprescindível para que você saiba resolver diversos problemas que podem surgir em alguma parte da sua vida profissional.
