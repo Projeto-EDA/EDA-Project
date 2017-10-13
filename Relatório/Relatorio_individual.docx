@@ -21,9 +21,11 @@ II) Diário de atividades
 
 Seção 1: João Vítor Morandi Lemos
 
-07/10/2017 - Início do projeto: foi criado um repositório no github onde nossos arquivos, tanto os códigos quanto os relatórios ficaram armazenados. Além disso, foi iniciada a criação de uma lista encadeada circular. Tive que estudar as apostilas do moodle para conseguir criá-la. Iniciei também a criação dos processos requisitados no projeto.
+07/10/2017 - Início do projeto: foi criado um repositório no github onde nossos arquivos, tanto os códigos quanto os relatórios estarão armazenados. Além disso, foi iniciada a criação de uma lista encadeada circular. Tive que estudar as apostilas do moodle para conseguir criá-la. Iniciei também a criação dos processos requisitados no projeto.
 
-11/10/2017 – Criação e formatação do relatório.
+11/10/2017 – Criação e formatação do relatório. O código criado até então se mostrou insuficiente para resolver alguns requisitos. Foi necessário que o código fosse completamente refeito.
+
+Entre 11/10/2017 e 12/10/2017 – Criação de um menu para melhor interação com o usuário. Criação da função de inserção de um processo. A remoção a partir do tempo foi bem sucedida. Os processos não mais se sobrepõem a outros processos em andamento, apenas ocupam áreas vazias, e não havendo espaços vazios, mostra-se uma mensagem de erro ao executar o processo. 
 
 Seção 2: João Lucas Sousa Reis
 
