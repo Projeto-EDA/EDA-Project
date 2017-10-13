@@ -151,7 +151,7 @@ int main(){
     printf("Informe o tempo de duração: ");
     scanf("%d",&temp);
     if(tam >= tam2){
-      l = altera_lista(l,name,tam2,temp);
+      l = altera_lista(l,name,tam2,(temp+Chronos));
       tam = tam - tam2;
     }
     else{
