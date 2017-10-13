@@ -29,7 +29,7 @@ struct menu{
 
 typedef struct menu Menu;
 
-//Inicializa a lista;
+//Inicializa o cabeçalho;
 Menu *lst_cria(){
   Menu *novo = (Menu *)malloc(sizeof(Menu));
   novo->inicio = NULL;
@@ -67,25 +67,42 @@ Menu *cria_lista(Menu *l,int tam){
   return (l);
 }
 
+//Função para imprimir a situação atual da memória
 void printar(Menu *l){
+  int c=0,v=0;
   if((l->tam == 0) || (l==NULL)){
     return;
   }
   Elemento *no = l->inicio;
-  printf("Nó %d:",no->pos);
+  printf("\nEspaço %d: ",no->pos);
   printf("%c - ",no->band);
   printf("%c\n",no->nome);
   no = no->prox;
+  if(no->band == 'H'){
+    v++;
+  }
+  if(no->band == 'P'){
+    c++;
+  }
   while(no != l->inicio){
-    printf("Nó %d:",no->pos);
+    printf("Espaço %d: ",no->pos);
     printf("%c - ",no->band);
+    if(no->band == 'H'){
+      v++;
+    }
+    if(no->band == 'P'){
+      c++;
+    }
     printf("%c\n",no->nome);
     no = no->prox;
   }
+
+  printf("\n\t\t\tEspaço ocupado:    %d",c);
+  printf("\n\t\t\tEspaço disponível: %d",v);
+
 }
 
-/*Tenta reorganizar a lista se o tamanho do processo for muito grande
-e não couber;*/
+/*Insere um novo processo na memória de acordo com o tamanho dele */
 Menu *altera_lista(Menu *l,char name, int p,int temp){
   Elemento *aux;
   aux = l->inicio;
@@ -103,7 +120,6 @@ Menu *altera_lista(Menu *l,char name, int p,int temp){
       aux = aux->prox;
     }
   }
-
   return (l);
 }
 
@@ -132,7 +148,7 @@ int remover(Menu *l,int tam,int temp){
 
 int main(){
   Menu *l;
-  int tam,tam2,temp,opcao,Chronos=0;
+  int tam,comp,tam2,temp,opcao,Chronos=0,t;
   char name;
   printf("\nDigite o tamanho da memória: ");
   scanf("%d",&tam);
@@ -147,8 +163,12 @@ int main(){
   printf("Escolha uma opcao: ");
   scanf("%d",&opcao);
   if(opcao==1){
-    Chronos++;
+    printf("Digite quanto tempo deseja passar: ");
+    scanf("%d",&t);
+    Chronos = Chronos + t;
+    comp = tam;
     tam = remover(l,tam,Chronos);
+    printf("\n\t\t\tEspaço liberado na memória: %d\n",(tam-comp));
   }
   if(opcao==2){
     flush_in();
@@ -165,7 +185,7 @@ int main(){
     }
     //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
     else{
-      printf("\nMemória insuficiente\n");
+      printf("\n\t\t\tMemória insuficiente\n");
     }
 }
   if(opcao==3){
