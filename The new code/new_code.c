@@ -183,7 +183,7 @@ int main(){
       l = altera_lista(l,name,tam2,(temp+Chronos));
       tam = tam - tam2;
     }
-    //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
+    //Se extrapolar a quantidade de memória disponivel retorna uma mensagem;
     else{
       printf("\n\t\t\tMemória insuficiente\n");
     }
