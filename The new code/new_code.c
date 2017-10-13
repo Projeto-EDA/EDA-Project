@@ -1,3 +1,15 @@
+/*Relatório - Projeto de Pesquisa de EDA – Parte 1
+
+Alunos:
+
+-João Lucas Sousa Reis    /160009758
+-João Vítor Morandi Lemos /160010195
+-Luciano dos Santos Silva /160013321
+
+Professor: Fernando W. Cruz
+Disciplina: Estrutura de Dados e Algoritmos
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -183,15 +195,20 @@ int main(){
       l = altera_lista(l,name,tam2,(temp+Chronos));
       tam = tam - tam2;
     }
-    //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
+    //Se extrapolar a quantidade de memória disponivel retorna uma mensagem;
     else{
       printf("\n\t\t\tMemória insuficiente\n");
+      printf("\t\tResete o tempo dos processos ou Sai do Programa e retorne\n");
     }
 }
   if(opcao==3){
     printar(l);
   }
 
+  if(opcao>=4){
+    printf("\n\t\t\t\tERRO!\n");
+    printf("\t\tPorfavor, digite uma opcao VALIDA!\n");
+  }
 }while(opcao!=0);
 
   return 0;
