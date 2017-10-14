@@ -1,4 +1,4 @@
-Relatório - Projeto de Pesquisa de EDA – Parte 1
+﻿Relatório - Projeto de Pesquisa de EDA – Parte 1
 
 Alunos:
 
@@ -14,37 +14,62 @@ I) Objetivos do projeto
 O Primeiro Projeto de pesquisa da disciplina de Estruturas de Dados e Algoritmos da FGA(Faculdade do Gama)-UNB foi criar diversos processos que interagem com a memória do sistema operacional.
 Esses processos devem ser alocados na memória e depois de executados devem liberar o espaço ocupado por eles.
 Tal trabalho formado pelos alunos da disciplina devem buscar conhecimento do programa com todos seus requisitos sendo obedecidos e executados.
-Foi cumprida a criação de um menu com opções de imprimir, inserir e remoção de um processo da lista, além de uma opção para saída do programa.
+Foi cumprida a criação de um menu com opções de imprimir, inserir e remover com o tempo um processo da lista, além de uma opção para saída do programa.
 O processo de alocação de memória seguiu a regra que o processo deve ser colocado na primeira região de memória.
 O trabalho respeita perfeitamente os padrões de gerência de espaços dos processos. Caso um processo não caiba em um buraco vazio o programa ilustra a mensagem de mémoria cheia.
-O programa respeitou todos os demais requisitos pedido pelo Professor, o único requisito que não foi cumprido foi a criação de um arquivo para armazenar os dados dos processos já salvos.
+O trabalho contém um menu de fácil interação com o usuário, no qual o mesmo pode sair do programa, imprimir a memória de maneira detalhada, inserir um novo programa ou observar o funcionamento da S.O. com o passar do tempo.
 
 II) Diário de atividades
 
 Seção 1: João Vítor Morandi Lemos
 
-07/10/2017 - Início do projeto: foi criado um repositório no github onde nossos arquivos, tanto os códigos quanto os relatórios estarão armazenados. Além disso, foi iniciada a criação de uma lista encadeada circular. Tive que estudar as apostilas do moodle para conseguir criá-la. Iniciei também a criação dos processos requisitados no projeto.
+07/10/2017
+-Início do projeto: foi criado um repositório no github onde nossos arquivos, tanto os códigos quanto os relatórios estarão armazenados. 
+-Foi iniciada a criação de uma lista encadeada circular.
+-Tive que estudar as apostilas do moodle para conseguir criá-la. 
+-Iniciada a criação dos processos requisitados no projeto.
 
-11/10/2017 – Criação e formatação do relatório. O código criado até então se mostrou insuficiente para resolver alguns requisitos. Foi necessário que o código fosse completamente refeito.
+11/10/2017
 
-Entre 11/10/2017 e 12/10/2017 – Criação de um menu para melhor interação com o usuário. Criação da função de inserção de um processo. A remoção a partir do tempo foi bem sucedida. Os processos não mais se sobrepõem a outros processos em andamento, apenas ocupam áreas vazias, e não havendo espaços vazios, mostra-se uma mensagem de erro ao executar o processo.
+–Criação e formatação do relatório. 
+-O código criado até então se mostrou insuficiente para resolver alguns requisitos, foi necessário que o código fosse completamente refeito.
+
+Entre 11/10/2017 e 12/10/2017
+
+–Criação de um menu para melhor interação com o usuário.
+-Criação da função de inserção de um processo.
+-A remoção a partir do tempo foi criada e testada.
+-Os processos não mais se sobrepõem a outros processos em andamento, apenas ocupam áreas vazias, e não havendo espaços vazios, mostra-se uma mensagem de erro ao executar o processo.
+
+12/10/2017
+
+–Aprimoramentos no código.
+-Adicionando informações ao usuário, como espaço de memória disponível, entre outros.
+-Revisão dos comentários e da identação do código.
+-Revisão do estado final do relatório.
+
 
 Seção 2: João Lucas Sousa Reis
 
-09/10/2017 - Pesquisas para conhecimento do trabalho e criação de alguns códigos para testes de estudo.
+09/10/2017 
+-Pesquisas para conhecimento do trabalho e criação de alguns códigos para testes de estudo.
 
-12/10/2017 - Criação e Formatação do relatório e criando a função remover no código.
+12/10/2017 
+-Criação e Formatação do relatório e criando a função remover no código.
 
-13/10/2017 – Testes de execução do código para verificação de possíveis erros ou avisos
+13/10/2017 
+–Testes de execução do código para verificação de possíveis erros ou avisos
 
 Seção 3: Luciano dos Santos
 
-08/10/2017 – Pesquisa para adquirir base e aprofundamento nos funcionamentos de um processo na memória e de uma lista duplamente encadeada e circular.
+08/10/2017 
+–Pesquisa para adquirir base e aprofundamento nos funcionamentos de um processo na memória e de uma lista duplamente encadeada e circular.
 
-11/10/2017 – Implementação dos códigos para a criação da lista duplamente encadeada e circular.
+11/10/2017 
+–Implementação dos códigos para a criação da lista duplamente encadeada e circular.
 
-12/10/2017 – Instruções acerca do funcionamento do código para um bom entendimento.
-
+12/10/2017 
+–Instruções acerca do funcionamento do código para um bom entendimento.
 
 III) Código identado e documentado
 
@@ -251,13 +276,13 @@ int main(){
 
 IV) Análise
 
-Grau de falhas:
-
-Limitação da solução:
+Grau de falhas: O programa funciona perfeitamente, não foi detectado nenhum erro.
 
 
-Melhorias possíveis:
+Limitação da solução: O tempo não funciona automaticamente, ou seja, o usuário precisa avançar o tempo manualmente. O programa não salva o estado da memória ao sair, ou seja, tudo é perdido e a memória volta a ficar vazia quando o programa é reiniciado. Além disso, não é registrado qual processo acabou quando um processo é encerrado, só mostra o espaço na memória que foi liberado.
 
+
+Melhorias possíveis: Além de solucionar os problemas de limitação abordados anteriormente, uma melhoria na interface do programa também seria importante, pois ela é muito simples e elementar, mostrando apenas o estado do nó (preenchido ou vazio), o nome do processo e a posição na memória.
 
 V) Opinião pessoal
 
