@@ -1,16 +1,3 @@
-/*
-Relatório - Projeto de Pesquisa de EDA – Parte 1
-
-Alunos:
-
--João Lucas Sousa Reis    /160009758
--João Vítor Morandi Lemos /160010195
--Luciano dos Santos Silva /160013321
-
-Professor: Fernando W. Cruz
-Disciplina: Estrutura de Dados e Algoritmos
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -160,11 +147,23 @@ int remover(Menu *l,int tam,int temp){
 
 
 int main(){
+  FILE *arq;
   Menu *l;
   int tam,comp,tam2,temp,opcao,Chronos=0,t;
   char name;
+  arq = fopen("Processos.txt","wt");
+  if(arq == NULL)
+  {
+    printf("Problemas\n");
+    return 1;
+  }
   printf("\nDigite o tamanho da memória: ");
   scanf("%d",&tam);
+  char aux[4];
+  sprintf(aux,"%d",tam);
+  //for(int l=0;l<strlen(aux);l++)
+  int retorno = fputs(aux, arq);
+  fputs('\n',arq);
   l = lst_cria();
   l = cria_lista(l,tam);
 
@@ -179,6 +178,9 @@ int main(){
     printf("Digite quanto tempo deseja passar: ");
     scanf("%d",&t);
     Chronos = Chronos + t;
+    char aux2[4];
+    sprintf(aux2,"%d",Chronos);
+    int retorno1 = fputs(aux2, arq);
     comp = tam;
     tam = remover(l,tam,Chronos);
     printf("\n\t\t\tEspaço liberado na memória: %d\n",(tam-comp));
@@ -187,29 +189,33 @@ int main(){
     flush_in();
     printf("Informe o nome do processo: ");
     scanf("%c",&name);
+    char aux3[4];
+    sprintf(aux3,"%d",name);
+    int retorno2 = fputs(aux3,arq);
     flush_in();
     printf("Informe o tamanho do processo: ");
     scanf("%d",&tam2);
+    char aux4[4];
+    sprintf(aux4,"%d",tam2);
+    int retorn3 =fputs(aux4,arq);
     printf("Informe o tempo de duração: ");
     scanf("%d",&temp);
+    char aux5[4];
+    sprintf(aux5,"%d",temp);
+    int retorno4 = fputs(aux5, arq);
     if(tam >= tam2){
       l = altera_lista(l,name,tam2,(temp+Chronos));
       tam = tam - tam2;
     }
-    //Se extrapolar a quantidade de memória disponivel retorna uma mensagem;
+    //Se estrapolar a quantidade de memória disponivel retorna uma mensagem;
     else{
       printf("\n\t\t\tMemória insuficiente\n");
-      printf("\t\tResete o tempo dos processos ou Sai do Programa e retorne\n");
     }
 }
   if(opcao==3){
     printar(l);
   }
 
-  if(opcao>=4){
-    printf("\n\t\t\t\tERRO!\n");
-    printf("\t\tPorfavor, digite uma opcao VALIDA!\n");
-  }
 }while(opcao!=0);
 
   return 0;
